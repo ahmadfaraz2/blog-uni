@@ -17,6 +17,9 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{% static "" %}">
     </head>
 
     <body>
@@ -102,6 +105,7 @@
                         <p>This is my blog.</p>
                     </div>
                 </div>
+                {% include "pagination.html" %}
             </div>
         </main>
 
