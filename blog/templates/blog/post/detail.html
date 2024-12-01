@@ -11,13 +11,35 @@
     <hr>
     <br>
     {{post.body|linebreaks}}
-    <p>
+    <p class="p-1 mb-2 bg-info-subtle text-info-emphasis rounded">
         <a href="{% url "blog:post_share" post.id %}">Share this post</a>
     </p>
 
-    <p>
+    <p class="p-1 mb-2 bg-dark-subtle text-dark-emphasis rounded">
         Published {{post.publish}} by {{post.author}}
     </p>
+    <br>
 
+    {% with comments.count as total_comments %}
+        <h2>
+            {{total_comments}} comment{{total_comments|pluralize}}
+        </h2>
+    {% endwith %}
+
+
+    {% for comment in comments %}
+        <div class="card mb-2">
+            <div class="card-header">
+                    Comment {{forloop.counter}} by {{comment.name}} at {{comment.created}}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{comment.body|linebreaks}}</p>
+            </div> 
+        </div>
+    {% empty %}
+        <p>There are no comments yet.</p>
+    {% endfor %}
+
+    {% include "blog/post/includes/comment_form.html" %}
 
 {% endblock content %}
