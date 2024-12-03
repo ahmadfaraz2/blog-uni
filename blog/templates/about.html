@@ -1,0 +1,71 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+About Us
+{% endblock title %}
+
+{% block about %}
+<div class="container about-container">
+    <div class="about-section">
+        <h1 class="about-title text-center">About Us</h1>
+        <p class="about-content">
+            Welcome to our blog application! We are passionate about sharing knowledge and insights on various topics. Our mission is to provide valuable content that educates, informs, and inspires our readers.
+        </p>
+        <p class="about-content">
+            Our team of dedicated writers and contributors work hard to bring you the latest trends, tips, and information across a range of subjects. Whether you're looking for tech tutorials, lifestyle tips, or in-depth articles on current events, we've got you covered.
+        </p>
+        <p class="about-content">
+            At the heart of our blog is a commitment to quality and authenticity. We believe in the power of storytelling and the impact it can have on our readers' lives. Every article is crafted with care, backed by thorough research, and designed to provide practical insights.
+        </p>
+        <p class="about-content">
+            We started this blog to create a platform where ideas can be exchanged, discussions can be sparked, and a community of like-minded individuals can come together. Whether you're a seasoned expert or just starting out, you'll find something of value here.
+        </p>
+        <p class="about-content">
+            Thank you for visiting our blog. We hope you enjoy reading our posts as much as we enjoy creating them. If you have any questions, comments, or suggestions, feel free to reach out to us through our contact page.
+        </p>
+    </div>
+
+    {% comment %} <div class="team-section">
+        <h2 class="about-title text-center">Meet Our Team</h2>
+        <div class="row">
+            <div class="col-md-3 team-member text-center">
+                <img src="https://avatars.githubusercontent.com/u/90551138?v=4" alt="Team Member 1">
+                <h5>Ahmad Faraz</h5>
+                <p>Founder & Editor-in-Chief</p>
+            </div>
+            <div class="col-md-3 team-member text-center">
+                <img src="https://via.placeholder.com/100" alt="Team Member 2">
+                <h5>Jane Smith</h5>
+                <p>Senior Writer</p>
+            </div>
+            <div class="col-md-3 team-member text-center">
+                <img src="https://via.placeholder.com/100" alt="Team Member 3">
+                <h5>Emily Johnson</h5>
+                <p>Community Manager</p>
+            </div>
+            <div class="col-md-3 team-member text-center">
+                <img src="https://via.placeholder.com/100" alt="Team Member 3">
+                <h5>Emily Johnson</h5>
+                <p>Community Manager</p>
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+    <div class="about-section">
+        <h2 class="about-title text-center">Our Vision & Values</h2>
+        <p class="about-content">
+            Our vision is to become a leading source of insightful and engaging content that empowers our readers to lead better lives. We are committed to upholding the following values:
+        </p>
+        <ul class="about-content">
+            <li><strong>Integrity:</strong> We believe in honesty and transparency in all our content.</li>
+            <li><strong>Quality:</strong> We strive to produce high-quality articles that are well-researched and well-written.</li>
+            <li><strong>Community:</strong> We aim to build a supportive and engaged community of readers and contributors.</li>
+            <li><strong>Innovation:</strong> We are constantly exploring new ideas and formats to keep our content fresh and relevant.</li>
+        </ul>
+        <p class="about-content">
+            Join us on this journey and become a part of our growing community. Whether you're here to learn, share, or connect, we welcome you with open arms.
+        </p>
+    </div>
+</div>
+{% endblock about %}

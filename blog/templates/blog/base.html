@@ -30,7 +30,7 @@
                 class="navbar navbar-expand-sm navbar-dark bg-dark"
             >
                 <div class="container">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" href="/blog">ThoughtCanvas</a>
                     <button
                         class="navbar-toggler d-lg-none"
                         type="button"
@@ -45,50 +45,19 @@
                     <div class="collapse navbar-collapse" id="collapsibleNavId">
                         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#" aria-current="page"
+                                <a class="nav-link active" href="/blog" aria-current="page"
                                     >Home
                                     <span class="visually-hidden">(current)</span></a
                                 >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a
-                                    class="nav-link dropdown-toggle"
-                                    href="#"
-                                    id="dropdownId"
-                                    data-bs-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    >Dropdown</a
-                                >
-                                <div
-                                    class="dropdown-menu"
-                                    aria-labelledby="dropdownId"
-                                >
-                                    <a class="dropdown-item" href="#"
-                                        >Action 1</a
-                                    >
-                                    <a class="dropdown-item" href="#"
-                                        >Action 2</a
-                                    >
-                                </div>
+                                <a class="nav-link" href="/about">About</a>
                             </li>
                         </ul>
-                        <form class="d-flex my-2 my-lg-0">
-                            <input
-                                class="form-control me-sm-2"
-                                type="text"
-                                placeholder="Search"
-                            />
-                            <button
-                                class="btn btn-outline-success my-2 my-sm-0"
-                                type="submit"
-                            >
-                                Search
-                            </button>
-                        </form>
+                        <div class="d-flex my-2 my-lg-0">
+                            <a class="btn btn-success my-2 my-sm-0">Sign Up</a>
+                            <a class="btn btn-primary m-2 my-sm-0" href="">Login</a>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -96,40 +65,48 @@
         </header>
         <main>
             <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        {% block content %}
-                        {% endblock content %}
-                    </div>
-                    <div class="col-md-4 bg-body-secondary">
-                        <h2>My blog</h2>
-                        <p>
-                            This is my blog.
-                            I've written {% total_posts %} posts so far.
-                        </p>
-                        <h3>Latest Posts</h3>
-                        {% show_latest_posts 3 %}
+                {% block about %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            {% block content %}
+                            {% endblock content %}
+                        </div>
+                        <div class="col-md-4 bg-body-secondary">
+                            <h2>My blog</h2>
+                            <p>
+                                This is my blog.
+                                I've written {% total_posts %} posts so far.
+                            </p>
+                            <h3>Latest Posts</h3>
+                            {% show_latest_posts 3 %}
 
-                        <h3>Most commented posts</h3>
-                        {% get_most_commented_posts as most_commented_posts %}
-                        <ul>
-                            {% for post in most_commented_posts %}
-                                <li>
-                                    <a href="{{post.get_absolute_url}}">{{post.title}}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        {% block sidebar %}
-                        
-                        {% endblock sidebar %}
+                            <h3>Most commented posts</h3>
+                            {% get_most_commented_posts as most_commented_posts %}
+                            <ul>
+                                {% for post in most_commented_posts %}
+                                    <li>
+                                        <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% block sidebar %}
+                            
+                            {% endblock sidebar %}
+                        </div>
                     </div>
-                </div>
-                {% include "pagination.html" %}
+                    {% include "pagination.html" %}
+                {% endblock about %}
             </div>
         </main>
 
-        <footer>
+        <footer class="py-3 my-4 ">
             <!-- place footer here -->
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="/blog" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
+            </ul>
+            <p class="text-center text-muted">&copy; 2024 Company, Inc</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
