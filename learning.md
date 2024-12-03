@@ -115,3 +115,7 @@ The `comments` attribute, specified in the `Comment` model with `related_name`, 
 
 
 This is the same thing we also doing with **django-taggit**.
+
+
+## Custom Template Tags
+* **simple_tag** vs **inclusion_tag**
