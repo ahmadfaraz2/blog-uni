@@ -11,6 +11,8 @@ from django.views.decorators.http import require_POST
 
 from django.views.generic import ListView
 
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 def post_list(request, tag_slug=None):
     post_list = Post.published.all()
@@ -31,7 +33,7 @@ def post_list(request, tag_slug=None):
         posts = paginator.page(paginator.num_pages)
     return render(request, "blog/post/list.html", {'posts':posts, "tag":tag})
 
-
+@login_required
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post,
                             status=Post.Status.PUBLISHED,
@@ -57,7 +59,7 @@ def post_detail(request, year, month, day, post):
                 "form": form,
                 "similar_posts": similar_posts})
 
-
+@login_required
 def post_share(request, post_id):
     # Retrieve post by id 
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
@@ -86,6 +88,7 @@ def post_share(request, post_id):
 
 
 @require_POST
+@login_required
 def post_comment(request, post_id):
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     comment = None
