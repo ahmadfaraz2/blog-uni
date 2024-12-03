@@ -1,3 +1,4 @@
+{% load custom_tags %}
 {% load static %}
 <!doctype html>
 <html lang="en">
@@ -102,7 +103,10 @@
                     </div>
                     <div class="col-md-4 bg-body-secondary">
                         <h2>My blog</h2>
-                        <p>This is my blog.</p>
+                        <p>
+                            This is my blog.
+                            I've written {% total_posts %} posts so far.
+                        </p>
                         {% block sidebar %}
                         
                         {% endblock sidebar %}
