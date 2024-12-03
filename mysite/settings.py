@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
 ]
 
+# Redirect to the homepage after login
+LOGIN_REDIRECT_URL = '/blog'
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
