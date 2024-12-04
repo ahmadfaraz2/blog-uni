@@ -152,6 +152,17 @@ def post_update(request, id):
     return render(request, "blog/post/post_form.html", {"form":form})
 
 
+def post_delete(request, id):
+    post = get_object_or_404(Post, id=id)
+    if post.author != request.user:
+        return HttpResponseForbidden()
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('blog:post_list')
+
+    return render(request, 'blog/post/post_confirm_delete.html', {'post': post})
+
 class PostListView(ListView):
     queryset = Post.published.all()
     context_object_name = "posts"
