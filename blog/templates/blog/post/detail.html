@@ -20,6 +20,9 @@
     <p class="p-1 mb-2 bg-dark-subtle text-dark-emphasis rounded">
         Published {{post.publish}} by {{post.author}}
     </p>
+    <br>
+    <a class="btn btn-success" href="{% url "blog:post_edit" post.id %}">Edit</a>
+    <a class="btn btn-danger" href="{% url "blog:post_delete" post.id %}">Delete</a>
     <hr>
 
     {% with comments.count as total_comments %}

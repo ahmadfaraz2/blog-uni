@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseForbidden
 from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import EmailPostForm, CommentForm
+from .forms import EmailPostForm, CommentForm, PostForm
+from django.contrib.auth.decorators import login_required
 
 from taggit.models import Tag
 from django.db.models import Count
@@ -10,8 +12,6 @@ from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 
 from django.views.generic import ListView
-
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def post_list(request, tag_slug=None):
@@ -104,6 +104,65 @@ def post_comment(request, post_id):
 
     return render(request, "blog/post/comment.html", {"post":post, "form": form, "comment":comment})
 
+
+# --------------------------------------Adding CRUD Functionality------------------------------------
+
+# Create View
+@login_required
+def post_create(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.status = Post.Status.PUBLISHED
+            post.slug = slugify(post.title)
+            post.save()
+            form.save_m2m()  # Save the tags
+            return redirect("blog:post_detail", post.publish.year, post.publish.month, post.publish.day, post.slug)
+        
+    else: 
+        form = PostForm()
+
+    return render(request, "blog/post/post_form.html", {"form":form})
+
+
+@login_required
+def post_update(request, id):
+    post = get_object_or_404(Post, id=id, status=Post.Status.PUBLISHED)
+
+    if post.author != request.user:
+        return HttpResponseForbidden()
+    
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.status = Post.Status.PUBLISHED
+            if not post.slug:
+                post.slug = slugify(post.title)
+            post.save()
+            form.save_m2m() # Save the tags
+            return redirect("blog:post_detail", post.publish.year, post.publish.month, post.publish.day, post.slug)
+        
+    else: 
+        form = PostForm(instance=post)
+    
+    return render(request, "blog/post/post_form.html", {"form":form})
+
+@login_required
+def post_delete(request, id):
+    post = get_object_or_404(Post, id=id)
+    if post.author != request.user:
+        return HttpResponseForbidden()
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('blog:post_list')
+
+    return render(request, 'blog/post/post_confirm_delete.html', {'post': post})
 
 class PostListView(ListView):
     queryset = Post.published.all()
