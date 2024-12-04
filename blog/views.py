@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseForbidden
 from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import EmailPostForm, CommentForm, PostForm
@@ -106,6 +107,7 @@ def post_comment(request, post_id):
 
 # --------------------------------------Adding CRUD Functionality------------------------------------
 
+# Create View
 def post_create(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -116,12 +118,39 @@ def post_create(request):
             post.status = Post.Status.PUBLISHED
             post.slug = slugify(post.title)
             post.save()
+            form.save_m2m()  # Save the tags
             return redirect("blog:post_detail", post.publish.year, post.publish.month, post.publish.day, post.slug)
         
     else: 
         form = PostForm()
 
     return render(request, "blog/post/post_form.html", {"form":form})
+
+
+
+def post_update(request, id):
+    post = get_object_or_404(Post, id=id, status=Post.Status.PUBLISHED)
+
+    if post.author != request.user:
+        return HttpResponseForbidden()
+    
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.status = Post.Status.PUBLISHED
+            if not post.slug:
+                post.slug = slugify(post.title)
+            post.save()
+            form.save_m2m() # Save the tags
+            return redirect("blog:post_detail", post.publish.year, post.publish.month, post.publish.day, post.slug)
+        
+    else: 
+        form = PostForm(instance=post)
+    
+    return render(request, "blog/post/post_form.html", {"form":form})
+
 
 class PostListView(ListView):
     queryset = Post.published.all()
