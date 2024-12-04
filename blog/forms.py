@@ -1,5 +1,17 @@
 from django import forms
-from .models import Comment
+from .models import Comment, Post
+
+class PostForm(forms.ModelForm):
+    
+    class Meta:
+        model = Post
+        fields = ["title", "body", "tags"]
+
+        widgets = {
+            "title": forms.TextInput(attrs={"class": "form-control border border-primary p-2 mb-2 border-opacity-75"}),
+            "body": forms.Textarea(attrs={"class": "form-control border border-primary p-2 mb-2 border-opacity-75"}),
+            "tags": forms.TextInput(attrs={"class": "form-control border border-success p-2 mb-2 border-opacity-75"})
+        }
 
 class EmailPostForm(forms.Form):
     name = forms.CharField(
