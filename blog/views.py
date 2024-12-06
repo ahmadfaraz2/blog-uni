@@ -151,7 +151,7 @@ def post_update(request, id):
     else: 
         form = PostForm(instance=post)
     
-    return render(request, "blog/post/post_form.html", {"form":form})
+    return render(request, "blog/post/post_form.html", {"form":form, "post": post})
 
 @login_required
 def post_delete(request, id):

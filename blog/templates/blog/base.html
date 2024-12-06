@@ -30,7 +30,7 @@
                 class="navbar navbar-expand-sm navbar-dark bg-dark"
             >
                 <div class="container">
-                    <a class="navbar-brand" href="/blog">ThoughtCanvas</a>
+                    <a class="navbar-brand" href="/">ThoughtCanvas</a>
                     <button
                         class="navbar-toggler d-lg-none"
                         type="button"
@@ -82,8 +82,10 @@
                         <div class="col-md-4 bg-body-secondary">
                             <h2>My blog</h2>
                             <p>
-                                Blog have {% total_posts %} posts so far and
-                                You've written {% total_user_posts request.user %} posts so far.
+                                Blog have {% total_posts %} posts so far 
+                                {% if user.is_authenticated %}
+                                    and You've written {% total_user_posts request.user %} posts so far.
+                                {% endif %}
                             </p>
                             <h3>Latest Posts</h3>
                             {% show_latest_posts 3 %}
@@ -111,7 +113,6 @@
             <!-- place footer here -->
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="/blog" class="nav-link px-2 text-muted">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
                 <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
             </ul>
             <p class="text-center text-muted">&copy; 2024 Company, Inc</p>

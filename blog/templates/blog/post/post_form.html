@@ -9,7 +9,10 @@
     <form action="" method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <input type="submit" value="Create">
+        <input class="btn btn-primary" type="submit" value="Create">
+        {% if post %}
+            <a class="btn btn-warning" href="{% url 'blog:post_detail' post.publish.year post.publish.month post.publish.day post.slug %}">Cancel</a>
+        {% endif %}
     </form>
 
 {% endblock about %}

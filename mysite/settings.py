@@ -125,7 +125,7 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Karachi'
 
 USE_I18N = True
 
