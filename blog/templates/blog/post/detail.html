@@ -21,8 +21,10 @@
         Published {{post.publish}} by {{post.author}}
     </p>
     <br>
-    <a class="btn btn-success" href="{% url "blog:post_edit" post.id %}">Edit</a>
-    <a class="btn btn-danger" href="{% url "blog:post_delete" post.id %}">Delete</a>
+        {% if post.author == request.user %}
+            <a class="btn btn-success" href="{% url "blog:post_edit" post.id %}">Edit</a>
+            <a class="btn btn-danger" href="{% url "blog:post_delete" post.id %}">Delete</a>
+        {% endif %}
     <hr>
 
     {% with comments.count as total_comments %}

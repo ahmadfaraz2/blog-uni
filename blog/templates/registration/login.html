@@ -5,8 +5,14 @@
 
     <h2 class="text-center mt-5">Login</h2>
 
+    
     <div class="d-flex justify-content-center align-items-center center-form">
         <div class="col-md-6">
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="p-1 mb-2 bg-danger-subtle text-danger-emphasis rounded text-center">{{message}}</p>
+                {% endfor %}
+            {% endif %}
             <form action="" method="post" >
                 {% csrf_token %}
                 {% for field in form %}
