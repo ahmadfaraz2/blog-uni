@@ -17,7 +17,7 @@ ThoughtCanvas is a Django-based blog application that allows users to create, ed
 ## Requirements
 
 - Python 3.x
-- Django 3.x or higher
+- Django 4.x or higher
 - django-taggit for tag management
 
 ## Installation
@@ -32,7 +32,7 @@ cd blog-uni
 2. Create a virtual environment and activate it:
 
 ```bash
-python -m venv env
+python -m virtualenv env
 source env/bin/activate  # On Windows use `env\Scripts\activate`
 ```
 
